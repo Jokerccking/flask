@@ -1,19 +1,21 @@
-from models import Model
 import time
-from utils import log
+
+from models import Model
+
 
 class Todo(Model):
-    #@classmethod
-    #def find_all(cls,uid):
-    #    ms = []
-    #    tds = cls.all()
-    #    for td in tds:
-    #        if td.uid == uid:
-    #            ms.append(td)
-    #    return ms
 
-    #@classmethod
-    #def tid(cls, i):
+    @classmethod
+    def find_all(cls, uid):
+        ums = []
+        ms = cls.all()
+        for m in ms:
+            if m.uid == uid:
+                ums.append(m)
+        return ums
+
+    # @classmethod
+    # def tid(cls, i):
     #    ms = cls.all()
     #    td = None
     #    for m in ms:
@@ -23,15 +25,14 @@ class Todo(Model):
     #    return td
 
     def __init__(self, form):
-        self.id = form.get('id')
+        super(Model, self).__init__()
         self.uid = int(form.get('uid'))
-        self.content = form.get('content','')
-        self.ct = form.get('ct',int(time.time()))
-        self.ut = form.get('ut',self.ct)
-        self.completed = form.get('complete',False)
+        self.content = form.get('content', '')
+        self.ct = form.get('ct', int(time.time()))
+        self.ut = form.get('ut', self.ct)
+        self.completed = form.get('complete', False)
 
-
-    def update(self,cnt):
+    def update(self, cnt):
         self.ut = int(time.time())
         self.content = cnt
         return self.save()
@@ -39,4 +40,3 @@ class Todo(Model):
     def complete(self):
         self.completed = True
         return self.save()
-

@@ -1,19 +1,28 @@
-from models import Model
 import time
-from utils import log
+
+from models import Model
+
 
 class Blog(Model):
     @classmethod
-    def popi(cls,i):
+    def find_all(cls, uid):
+        ums = []
+        ms = cls.all()
+        for m in ms:
+            if m.uid == uid:
+                ums.append(m)
+        return ums
+
+    @classmethod
+    def popi(cls, i):
         Comment.rm_bid(i)
         return cls.pop(i)
 
-
     def __init__(self, form):
-        self.id = form.get('id')
+        super(Model, self).__init__()
         self.uid = int(form.get('uid'))
         self.content = form.get('content', '')
-        self.ct = form.get('ct',int(time.time()))
+        self.ct = form.get('ct', int(time.time()))
 
     def comments(self):
         return Comment.find_bid(self.id)
@@ -27,16 +36,27 @@ class Blog(Model):
 
 class Comment(Model):
     @classmethod
-    def rm_bid(cls,bid):
+    def find_all(cls, uid):
+        ums = []
         ms = cls.all()
+        for m in ms:
+            if m.uid == uid:
+                ums.append(m)
+        return ums
+
+    @classmethod
+    def rm_bid(cls, bid):
+        ms = cls.all()
+
         def f(m):
             if m.bid != bid:
                 return True
-        ms = filter(f,ms)
+
+        ms = filter(f, ms)
         cls.resave(ms)
 
     @classmethod
-    def find_bid(cls,bid):
+    def find_bid(cls, bid):
         cms = []
         ms = cls.all()
         for m in ms:
@@ -45,9 +65,8 @@ class Comment(Model):
         return cms
 
     def __init__(self, form):
-        self.id = form.get('id')
+        super(Model, self).__init__()
         self.bid = int(form.get('bid', ''))
         self.um = form.get('um')
         self.content = form.get('content', '')
         self.ct = form.get('ct', int(time.time()))
-

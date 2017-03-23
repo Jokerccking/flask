@@ -1,0 +1,13 @@
+{% extends "basic.html" %}
+{% block title %}Index Page{% endblock %}
+{% block head %}{% endblock %}
+{% block content %}
+<h1>Welcome to The Index Page!</h1>
+<h3>{{ um }}</h3>
+<a href="{{ url_for() }}">登陆</a>
+<a href="{{ url_for() }}">注册</a>
+<a href="{{ url_for() }}">注销</a>
+<h3>App List:</h3>
+<a href="{{ url_for() }}">Todo</a><br>
+<a href="{{ url_for() }}">Blog</a>
+{% endblock %}

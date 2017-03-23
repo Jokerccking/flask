@@ -1,0 +1,67 @@
+# 1，拆分页面
+# 1.1 index页面：
+#       欢迎，
+#       登录，link，点击进入login页面，
+#       注册，link，点击进入register页面，
+#       退出，link，点击后退出登录，
+#       app入口：link-todo，blog
+# 1.2 login页面：
+#       欢迎登录
+#       form，post，
+#       用户名，密码，提交按钮
+# 1.3 register页面：
+#       欢迎注册
+#       form， post
+#       用户名，密码，提交按钮
+# 1.4 todo页面：
+#       欢迎你xxx
+#       todolist
+
+# 2，组织数据
+#   user：
+#   id，username，password，todos(),
+#   todo:
+#   id,uid,content,ct,
+#
+
+# 3, 逻辑详情：
+#       访问index页面，登录跳转到登录，
+#       登录：成功返回index，失败返回login
+#       注册：成功返回index，失败返回register
+#       todo：成功进入todo，失败跳转login
+
+# 4, 实现代码，一点点补全
+
+# 5，美化页面
+
+# 6，交互细节
+
+
+from flask import (
+    render_template,
+    request,
+    redirect,
+    session,
+    url_for,
+    Blueprint,
+    make_response,
+)
+
+from models.user import User
+
+main = Blueprint('index', __name__)
+
+
+def current_user():
+    uid = session.get('uid', -1)
+    u = User.find(int(uid))
+    return u
+
+
+@main.route('/')
+def index():
+    u = current_user()
+    um = None
+    if u is not None:
+        um = "欢迎你，{}！".format(u.username)
+    return render_template('index.html', um=um)

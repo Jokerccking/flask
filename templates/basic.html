@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('', filename='') }}">
+    <title>{% block title %}Title{% endblock %} - My WebPage</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2017 by <a href="">Roy</a>
+        {% endblock %}
+    </div>
+{% block script %}{% endblock %}
+</body>
+</html>
