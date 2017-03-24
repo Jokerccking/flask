@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="">
+		<title>Blog Page</title>
+	</head>
+	<body>
+		<h1>Welcom to Blog Page</h1>
+		<h3>Hello, {{um}}!</h3>
+		<div id="id-badd" data-id="{{uid}}">
+			<input class="content" type="textarea" placeholder="New blog here"><br>
+			<input class="badd" type="submit" value="New Blog">
+		</div>
+			<hr>
+			<h2>Blog List:</h2>
+		<div id="id-blist">
+
+
+
+
+
+		</div>
+		<h3>To others:</h3>
+		<div id="id-toothers">
+			{% for u in users %}
+			<div>
+				<a src="/blog/view?id="+{{ u.id }}>{{ u.username }}</a>
+			</div>
+			{% endfor %}
+
+		</div>
+	
+		<script src="{{ url_for('statics.js', file='basic.js') }}"></script>
+		<script src="{{ url_for('statics.js', file='blog_api.js') }}"></script>
+	</body>
+</html>
