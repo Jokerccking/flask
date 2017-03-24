@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "username": "roy",
+    "password": "d7508d3610f6016a6149a9d7bb1a9eef3d0e976904d775cc0c03c3ea17063a9e",
+    "role": 10
+  },
+  {
+    "id": 1,
+    "username": "abc",
+    "password": "d7508d3610f6016a6149a9d7bb1a9eef3d0e976904d775cc0c03c3ea17063a9e",
+    "role": 10
+  }
+]

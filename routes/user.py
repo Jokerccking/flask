@@ -61,7 +61,34 @@ def current_user():
 @main.route('/')
 def index():
     u = current_user()
-    um = None
+    um = '游客'
     if u is not None:
         um = "欢迎你，{}！".format(u.username)
     return render_template('index.html', um=um)
+
+
+@main.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        u = User.validate_login(request.form)
+        if u is None:
+            return redirect(url_for('.index'))
+        session['uid'] = u.id
+        return redirect(url_for('.index'))
+    return render_template('login.html')
+
+
+@main.route('/register', methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        u = User.validate_register(request.form)
+        if u is None:
+            return redirect(url_for('.index'))
+        return redirect(url_for('.login'))
+    return render_template('register.html')
+
+
+@main.route('/logout')
+def logout():
+    session.pop('uid')
+    return redirect(url_for('.index'))

@@ -10,35 +10,40 @@ class User(Model):
         return cls.all()
 
     @staticmethod
-    def salted_password(password, salt='$i3&f*k'):
+    def salted_password(password, salt='$/i3& f*~^k'):
         import hashlib
         hash1 = hashlib.sha256(password.encode('ascii')).hexdigest()
         hash2 = hashlib.sha256((hash1 + salt).encode('ascii')).hexdigest()
         return hash2
 
     def __init__(self, form):
-        super(Model, self).__init__()
+        # super(Model, self).__init__()
+        self.id = form.get('id')
         self.username = form.get('username', '')
         self.password = form.get('password', '')
         self.role = 10
 
-    def validate_login(self):
+    @classmethod
+    def validate_login(cls, form):
+        ul = cls(form)
         b = None
-        # self.password = self.salted_password(self.password)
-        us = User.all()
+        ul.password = cls.salted_password(ul.password)
+        us = cls.all()
         for u in us:
-            if u.username == self.username and u.password == self.password:
-                b = u.id
+            if u.username == ul.username and u.password == ul.password:
+                b = u
                 break
         return b
 
-    def validate_register(self):
-        us = User.all()
-        # self.password = self.salted_password(self.password)
+    @classmethod
+    def validate_register(cls, form):
+        ur = cls(form)
+        us = cls.all()
+        ur.password = cls.salted_password(ur.password)
         for u in us:
-            if u.username == self.username:
+            if u.username == ur.username:
                 return None
-        return self.save()
+        return ur.save()
 
     def todos(self):
         return Todo.find_all(self.id)

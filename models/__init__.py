@@ -97,12 +97,12 @@ class Model(object):
         p = [m.__dict__ for m in ms]
         save(p, cls.data_path())
 
-    def __init__(self, form):
-        """
-        initial a instance of the model by form,only has id
-        :param form:
-        """
-        self.id = form.get('id')
+    # def __init__(self, form):
+    #     """
+    #     initial a instance of the model by form,only has id
+    #     :param form:
+    #     """
+    #     self.id = form.get('id', None)
 
     def __repr__(self):
         """

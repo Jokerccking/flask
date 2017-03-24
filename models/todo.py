@@ -25,7 +25,8 @@ class Todo(Model):
     #    return td
 
     def __init__(self, form):
-        super(Model, self).__init__()
+        # super(Model, self).__init__()
+        self.id = form.get('id')
         self.uid = int(form.get('uid'))
         self.content = form.get('content', '')
         self.ct = form.get('ct', int(time.time()))

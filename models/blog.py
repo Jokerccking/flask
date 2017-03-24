@@ -19,7 +19,8 @@ class Blog(Model):
         return cls.pop(i)
 
     def __init__(self, form):
-        super(Model, self).__init__()
+        # super(Model, self).__init__()
+        self.id = form.get('id')
         self.uid = int(form.get('uid'))
         self.content = form.get('content', '')
         self.ct = form.get('ct', int(time.time()))
@@ -65,7 +66,8 @@ class Comment(Model):
         return cms
 
     def __init__(self, form):
-        super(Model, self).__init__()
+        # super(Model, self).__init__()
+        self.id = form.get('id')
         self.bid = int(form.get('bid', ''))
         self.um = form.get('um')
         self.content = form.get('content', '')
