@@ -6,10 +6,10 @@
 		<title>Blog Page</title>
 	</head>
 	<body>
-		<h1>Welcom to Blog Page</h1>
-		<h3>Hello, {{um}}!</h3>
-		<div id="id-badd" data-id="{{uid}}">
-			<input class="content" type="textarea" placeholder="New blog here"><br>
+		<h1>Welcome to Blog Page</h1>
+		<h3>Hello, {{ bu.username }}!</h3>
+		<div id="id-badd" data-id="{{ bu.id }}">
+			<textarea class="content"  placeholder="New blog here"></textarea><br>
 			<input class="badd" type="submit" value="New Blog">
 		</div>
 			<hr>
@@ -25,7 +25,7 @@
 		<div id="id-toothers">
 			{% for u in users %}
 			<div>
-				<a src="/blog/view?id="+{{ u.id }}>{{ u.username }}</a>
+				<a href="">{{ u.username }}</a>
 			</div>
 			{% endfor %}
 

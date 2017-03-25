@@ -34,3 +34,12 @@ from flask import (
 from routes.user import current_user
 
 main = Blueprint('blog', __name__)
+
+
+@main.route('/')
+def blog():
+    u = current_user()
+    if u is None:
+        return redirect(url_for('index.login'))
+    users = u.others()
+    return render_template('blog.html', bu=u, users=users)

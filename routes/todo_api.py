@@ -8,10 +8,6 @@ from flask import (
 from routes.user import current_user
 from models.todo import Todo
 
-import json
-
-from utils import log
-
 main = Blueprint('todo_api', __name__)
 
 

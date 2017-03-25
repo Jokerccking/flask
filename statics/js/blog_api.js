@@ -87,7 +87,7 @@ var blogDelete = function() {
 			var callBack = function(resp) {
 				bCell.remove();
 			};
-			ajax("GET","/blog/api/delete?id="+bid,"",callBack);
+			ajax("GET","/blog/api/delete/"+bid,"",callBack);
 		}
 	};
 
