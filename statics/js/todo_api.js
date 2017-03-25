@@ -80,6 +80,7 @@ var todoUpdate = function() {
 				tid: tdCell.dataset.id,
 				content: tdCell.querySelector("input").value
 			};
+			tdCell.querySelector("input").value = "";
 			var callBack = function(resp) {
 				var td = JSON.parse(resp);
 				tdCell.querySelector(".todo-content").innerHTML = td.content;

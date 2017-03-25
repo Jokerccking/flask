@@ -32,7 +32,7 @@ from routes.user import current_user
 
 main = Blueprint('todo', __name__)
 
-
+  
 @main.route('/')
 def todo():
     u = current_user()

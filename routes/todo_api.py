@@ -10,6 +10,8 @@ from models.todo import Todo
 
 import json
 
+from utils import log
+
 main = Blueprint('todo_api', __name__)
 
 
@@ -29,28 +31,34 @@ def tall():
 @main.route('/add', methods=['POST'])
 def add():
     u = current_user()
-    form = request.form
+    # log('request.form::::', request.form)     ImmutableMultiDict([])
+    # log('request.args:::', request.args)      ImmutableMultiDict([])
+    # log('request.values:::', request.values)   CombinedMultiDict([ImmutableMultiDict([]), ImmutableMultiDict([])])
+    # log('request.data:::', request.data)      b'{"uid":"0","content":"flask test"}'
+    # log(, request.get_json())                 {'uid': '0', 'content': 'flask test'}
+    # log('request.json::::', request.json)     {'uid': '0', 'content': 'flask test'}
+    form = request.json
     if u is None or form.get('uid') is None:
         return redirect(url_for('.tall'))
     td = Todo.new(form)
     return jsonify(td.to_dict())
 
 
-@main.route('/delete')
+@main.route('/delete', methods=['POST'])
 def delete():
     u = current_user()
-    form = json.loads(request.get_data())
-    tdid = form().get('id')
+    form = request.json
+    tdid = form.get('id')
     if u is None or tdid is None:
         return redirect('/todo')
     td = Todo.pop(int(tdid))
     return jsonify(td.to_dict())
 
 
-@main.route('/update')
+@main.route('/update', methods=['POST'])
 def update():
     u = current_user()
-    form = json.loads(request.get_data())
+    form = request.json
     tdid = form.get('tid')
     if u is None or tdid is None:
         return redirect('/todo')
